@@ -45,7 +45,7 @@ module.exports = function(RED) {
         return;
       }
       var payload = msg.payload;
-      callback({"payload":"juancito" });
+      callback({"payload":"juancito" ,"payload2":"juancito2"});
     });
   }
   RED.nodes.registerType("soapserverResponse", SoapServerResponseNode);

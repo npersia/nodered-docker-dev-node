@@ -32,6 +32,16 @@ module.exports = function(RED) {
     var soap = require("soap");
     var http = require("http");
     var port = parseInt(config.port);
+    var metodos = [
+	    {metodo : "startFlow",
+    	     campos : ["camp1","camp2"]},
+	    {metodo : "startFlow2",
+             campos : ["var1","var2"]}
+    ];
+
+
+
+
     if (isNaN(port)) {
       thisNode.error("No port for soap server node!");
       thisNode.status({fill: "red", shape: "ring", text: "not listening"});
@@ -46,7 +56,7 @@ module.exports = function(RED) {
     // Define the node-soap service definition.
     var nodeRedService = {
       NodeRED: {    // Service name
-        NodeRED: {  // Binding name
+        NodeRED: {}}};  // Binding name
 // Define a handler function for an incoming SOAP request for this flow.  The
 // handler function takes the SOAP data and adds it to the payload property of
 // the msg.  In addition, the SOAP response callback is added into the msg
@@ -54,22 +64,68 @@ module.exports = function(RED) {
 // The WSDL exposed by this service is fixed and hence we know what will be
 // incoming.  The args will contain a property called "payload" and that is what we will
 // set to the `msg` payload:
-          startFlow: function(args, soapResponseCallback) {
-            var payload = {
-		    "camp1": args.camp1,
-		    "camp2": args.camp2
-	    };
+
+
+     metodos.forEach(function (e, i, array) {
+         //console.log(elemento, indice);
+	 nodeRedService.NodeRED.NodeRED[e.metodo] = function(args, soapResponseCallback) {
+            var payload = {};
+		    e.campos.forEach(function (campos_e, campos_i, campos_array) {
+			    payload[campos_e]=args[campos_e];
+		    });
             thisNode.send({
               "payload": payload,
               "_soapServer_soapResponseCallback": soapResponseCallback
             });
-          }, // End of startFlow function
-          startFlowOneWay: function(args) {
-            thisNode.log("startFlowOneWay");
-          } // End of startFlowOneWay
-        } // End of binding name
-      } // End of service name
-    }; // End of service definition
+          };
+	  nodeRedService.NodeRED.NodeRED[e.metodo+"OneWay"] = function(args) {
+            thisNode.log(e.metodo+"OneWay");
+          };
+     });
+
+		
+		
+//          startFlow: function(args, soapResponseCallback) {
+//            var payload = {
+//		    "camp1": args.camp1,
+//		    "camp2": args.camp2
+//	    };
+//            thisNode.send({
+//              "payload": payload,
+//              "_soapServer_soapResponseCallback": soapResponseCallback
+//            });
+//          }, // End of startFlow function
+//          startFlowOneWay: function(args) {
+//            thisNode.log("startFlowOneWay");
+//          }, // End of startFlowOneWay
+//        
+//	
+//	  startFlow2: function(args, soapResponseCallback) {
+//            var payload = {
+//                    "var1": args.var1,
+//                    "var2": args.var2
+//            };
+//            thisNode.send({
+//              "payload": payload,
+//              "_soapServer_soapResponseCallback": soapResponseCallback
+//            });
+//          }, // End of startFlow function
+//          startFlowOneWay2: function(args) {
+//            thisNode.log("startFlowOneWay2");
+//          } // End of startFlowOneWay
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	} // End of binding name
+//      } // End of service name
+//    }; // End of service definition
 
     // The WSDL data is the XML document that represents the WSDL that is the
     // specification of the SOAP request honored by this node.  The WSDL can
@@ -82,10 +138,17 @@ module.exports = function(RED) {
   <wsdl:types>\
     <xsd:schema targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\">\
       <xsd:element name=\"NodeREDPayload\" type=\"tns:NodeREDPayload\"><\/xsd:element>\
-      <xsd:complexType name=\"NodeREDPayload\">\
+      <xsd:element name=\"PruebaServicio\" type=\"tns:PruebaServicio\"><\/xsd:element>\
+<xsd:complexType name=\"NodeREDPayload\">\
       \t<xsd:sequence>\
       \t\t<xsd:element name=\"camp1\" type=\"xsd:string\"><\/xsd:element>\
       \t\t<xsd:element name=\"camp2\" type=\"xsd:string\"><\/xsd:element>\
+      \t<\/xsd:sequence>\
+      <\/xsd:complexType>\
+<xsd:complexType name=\"PruebaServicio\">\
+      \t<xsd:sequence>\
+      \t\t<xsd:element name=\"var1\" type=\"xsd:string\"><\/xsd:element>\
+      \t\t<xsd:element name=\"var2\" type=\"xsd:string\"><\/xsd:element>\
       \t<\/xsd:sequence>\
       <\/xsd:complexType>\
     <\/xsd:schema>\
@@ -96,15 +159,34 @@ module.exports = function(RED) {
   <wsdl:message name=\"startFlowResponse\">\
     <wsdl:part element=\"tns:NodeREDPayload\" name=\"parameters\" \/>\
   <\/wsdl:message>\
+  <wsdl:message name=\"startFlow2Request\">\
+    <wsdl:part element=\"tns:PruebaServicio\" name=\"parameters\" \/>\
+  <\/wsdl:message>\
+  <wsdl:message name=\"startFlow2Response\">\
+    <wsdl:part element=\"tns:PruebaServicio\" name=\"parameters\" \/>\
+  <\/wsdl:message>\
   <wsdl:portType name=\"NodeRED\">\
     <wsdl:operation name=\"startFlow\">\
       <wsdl:input message=\"tns:startFlowRequest\"\/>\
       <wsdl:output message=\"tns:startFlowResponse\"\/>\
     <\/wsdl:operation>\
+    <wsdl:operation name=\"startFlow2\">\
+      <wsdl:input message=\"tns:startFlow2Request\"\/>\
+      <wsdl:output message=\"tns:startFlow2Response\"\/>\
+    <\/wsdl:operation>\
   <\/wsdl:portType>\
   <wsdl:binding name=\"NodeRED\" type=\"tns:NodeRED\">\
     <soap:binding style=\"document\" transport=\"http:\/\/schemas.xmlsoap.org\/soap\/http\"\/>\
     <wsdl:operation name=\"startFlow\">\
+      <soap:operation soapAction=\"http:\/\/www.neilkolban.com\/NodeRED\/startFlow\"\/>\
+      <wsdl:input>\
+        <soap:body use=\"literal\"\/>\
+      <\/wsdl:input>\
+      <wsdl:output>\
+        <soap:body use=\"literal\"\/>\
+      <\/wsdl:output>\
+    <\/wsdl:operation>\
+    <wsdl:operation name=\"startFlow2\">\
       <soap:operation soapAction=\"http:\/\/www.neilkolban.com\/NodeRED\/startFlow\"\/>\
       <wsdl:input>\
         <soap:body use=\"literal\"\/>\
