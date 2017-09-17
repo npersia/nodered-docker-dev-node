@@ -15,21 +15,24 @@ RUN npm install
 RUN mkdir /data
 RUN chmod -R 777 /data
 RUN mkdir /data/flows
-RUN chmod -R 777 /data/flows
 RUN mkdir /nodes
-RUN chmod -R 777 /nodes
 
 
 
 
 COPY settings.js /data/
-COPY flows/* /data/flows/
+COPY flows/ /data/flows/
 COPY nodes/ /nodes/
 
-#RUN chmod -R 777 /nodes/soapserver/
+RUN chmod -R 777 /nodes
+RUN chmod -R 777 /data/flows
 
-#RUN npm link /nodes/soapserver
-#RUN npm link /usr/src/node-red/ node-red-contrib-$NODE
+ENV NODE soapserver
+
+RUN chmod -R 777 /nodes/$NODE/
+
+RUN npm link /nodes/$NODE
+RUN npm link /usr/src/node-red/ node-red-contrib-$NODE
 
 
 EXPOSE 1880 8888
