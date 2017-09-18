@@ -22,10 +22,13 @@ RUN mkdir /nodes
 
 COPY settings.js /data/
 COPY flows/ /data/flows/
+
+RUN chmod -R 777 /data/flows
+
+
 COPY nodes/ /nodes/
 
 RUN chmod -R 777 /nodes
-RUN chmod -R 777 /data/flows
 
 ENV NODE soapserver
 

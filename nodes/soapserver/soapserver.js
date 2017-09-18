@@ -50,28 +50,28 @@ module.exports = function(RED) {
 		  
 		  
 	services.forEach(function (e,i,array){
-		schema_element = schema_element + '      <xsd:element name=\"'+service.method+'\" type=\"tns:'+service.method+'\"><\/xsd:element>';	
+		schema_element = schema_element + '      <xsd:element name=\"'+e.method+'\" type=\"tns:'+e.method+'\"><\/xsd:element>';	
 	});
 	
-//	services.forEach(function (e,i,array){
-//		var camps = '';
-//		e.camps.forEach(function (e_camps,i_camps,array_camps){
-//			camps = camps + '\t\t<xsd:element name=\"'+e_camps+'\" type=\"xsd:string\"><\/xsd:element>';				
-//		});
-//		complex_element = complex_element + '<xsd:complexType name=\"'+e.method+'\">      \t<xsd:sequence>'+camps+'      \t<\/xsd:sequence>      <\/xsd:complexType>';
-//    });
+	services.forEach(function (e,i,array){
+		var camps = '';
+		e.camps.forEach(function (e_camps,i_camps,array_camps){
+			camps = camps + '\t\t<xsd:element name=\"'+e_camps+'\" type=\"xsd:string\"><\/xsd:element>';				
+		});
+		complex_element = complex_element + '<xsd:complexType name=\"'+e.method+'\">      \t<xsd:sequence>'+camps+'      \t<\/xsd:sequence>      <\/xsd:complexType>';
+    });
 
-//    services.forEach(function (e,i,array){
-//		message_part = message_part + '  <wsdl:message name=\"'+e.method+'Request\">    <wsdl:part element=\"tns:+'e.method'+\" name=\"parameters\" \/>  <\/wsdl:message>  <wsdl:message name=\"'+e.method+'Response\">    <wsdl:part element=\"tns:'+e.method+'\" name=\"parameters\" \/>  <\/wsdl:message>';
-//    });
+    services.forEach(function (e,i,array){
+		message_part = message_part + '  <wsdl:message name=\"'+e.method+'Request\">    <wsdl:part element=\"tns:'+e.method+'\" name=\"parameters\" \/>  <\/wsdl:message>  <wsdl:message name=\"'+e.method+'Response\">    <wsdl:part element=\"tns:'+e.method+'\" name=\"parameters\" \/>  <\/wsdl:message>';
+    });
 
-//    services.forEach(function (e,i,array){
-//		operation = operation + '    <wsdl:operation name=\"'+service.method+'\">      <wsdl:input message=\"tns:'+service.method+'Request\"\/>      <wsdl:output message=\"tns:'+service.method+'Response\"\/>    <\/wsdl:operation>';
-//    });
+    services.forEach(function (e,i,array){
+		operation = operation + '    <wsdl:operation name=\"'+e.method+'\">      <wsdl:input message=\"tns:'+e.method+'Request\"\/>      <wsdl:output message=\"tns:'+e.method+'Response\"\/>    <\/wsdl:operation>';
+    });
 
-//    services.forEach(function (e,i,array){
-//        binding_operation = binding_operation + '    <wsdl:operation name=\"'+e.method+'\">      <wsdl:input message=\"tns:'+e.method+'Request\"\/>      <wsdl:output message=\"tns:'+e.method+'Response\"\/>    <\/wsdl:operation>';
-//    });
+    services.forEach(function (e,i,array){
+        binding_operation = binding_operation + '    <wsdl:operation name=\"'+e.method+'\">      <wsdl:input message=\"tns:'+e.method+'Request\"\/>      <wsdl:output message=\"tns:'+e.method+'Response\"\/>    <\/wsdl:operation>';
+    });
 
 
 
