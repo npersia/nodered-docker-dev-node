@@ -117,12 +117,87 @@ module.exports = function(RED) {
           };
      });
 
+
+
+
+
+
+//    var wsdl = '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\
+//<wsdl:definitions name=\"NodeRED\" targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/wsdl\/soap\/\" xmlns:tns=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:wsdl=\"http:\/\/schemas.xmlsoap.org\/wsdl\/\" xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\">\
+//  <wsdl:types>\
+//    <xsd:schema targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\">\
+//      <xsd:element name=\"NodeREDPayload\" type=\"tns:NodeREDPayload\"><\/xsd:element>\
+//      <xsd:element name=\"PruebaServicio\" type=\"tns:PruebaServicio\"><\/xsd:element>\
+//<xsd:complexType name=\"NodeREDPayload\">\
+//      \t<xsd:sequence>\
+//      \t\t<xsd:element name=\"camp1\" type=\"xsd:string\"><\/xsd:element>\
+//      \t\t<xsd:element name=\"camp2\" type=\"xsd:string\"><\/xsd:element>\
+//      \t<\/xsd:sequence>\
+//      <\/xsd:complexType>\
+//<xsd:complexType name=\"PruebaServicio\">\
+//      \t<xsd:sequence>\
+//      \t\t<xsd:element name=\"var1\" type=\"xsd:string\"><\/xsd:element>\
+//      \t\t<xsd:element name=\"var2\" type=\"xsd:string\"><\/xsd:element>\
+//      \t<\/xsd:sequence>\
+//      <\/xsd:complexType>\
+//    <\/xsd:schema>\
+//  <\/wsdl:types>\
+//  <wsdl:message name=\"startFlowRequest\">\
+//    <wsdl:part element=\"tns:NodeREDPayload\" name=\"parameters\" \/>\
+//  <\/wsdl:message>\
+//  <wsdl:message name=\"startFlowResponse\">\
+//    <wsdl:part element=\"tns:NodeREDPayload\" name=\"parameters\" \/>\
+//  <\/wsdl:message>\
+//  <wsdl:message name=\"startFlow2Request\">\
+//    <wsdl:part element=\"tns:PruebaServicio\" name=\"parameters\" \/>\
+//  <\/wsdl:message>\
+//  <wsdl:message name=\"startFlow2Response\">\
+//    <wsdl:part element=\"tns:PruebaServicio\" name=\"parameters\" \/>\
+//  <\/wsdl:message>\
+//  <wsdl:portType name=\"NodeRED\">\
+//    <wsdl:operation name=\"startFlow\">\
+//      <wsdl:input message=\"tns:startFlowRequest\"\/>\
+//      <wsdl:output message=\"tns:startFlowResponse\"\/>\
+//    <\/wsdl:operation>\
+//    <wsdl:operation name=\"startFlow2\">\
+//      <wsdl:input message=\"tns:startFlow2Request\"\/>\
+//      <wsdl:output message=\"tns:startFlow2Response\"\/>\
+//    <\/wsdl:operation>\
+//  <\/wsdl:portType>\
+//  <wsdl:binding name=\"NodeRED\" type=\"tns:NodeRED\">\
+//    <soap:binding style=\"document\" transport=\"http:\/\/schemas.xmlsoap.org\/soap\/http\"\/>\
+//    <wsdl:operation name=\"startFlow\">\
+//      <soap:operation soapAction=\"http:\/\/www.neilkolban.com\/NodeRED\/startFlow\"\/>\
+//      <wsdl:input>\
+//        <soap:body use=\"literal\"\/>\
+//      <\/wsdl:input>\
+//      <wsdl:output>\
+//        <soap:body use=\"literal\"\/>\
+//      <\/wsdl:output>\
+//    <\/wsdl:operation>\
+//    <wsdl:operation name=\"startFlow2\">\
+//      <soap:operation soapAction=\"http:\/\/www.neilkolban.com\/NodeRED\/startFlow\"\/>\
+//      <wsdl:input>\
+//        <soap:body use=\"literal\"\/>\
+//      <\/wsdl:input>\
+//      <wsdl:output>\
+//        <soap:body use=\"literal\"\/>\
+//      <\/wsdl:output>\
+//    <\/wsdl:operation>\
+//  <\/wsdl:binding>\
+//  <wsdl:service name=\"NodeRED\">\
+//    <wsdl:port binding=\"tns:NodeRED\" name=\"NodeRED\">\
+//      <soap:address location=\"http:\/\/localhost:'+port+'\/soap\"\/>\
+//    <\/wsdl:port>\
+//  <\/wsdl:service>\
+//<\/wsdl:definitions>\
+//';
+
+
     var wsdl = '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\
 <wsdl:definitions name=\"NodeRED\" targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/wsdl\/soap\/\" xmlns:tns=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:wsdl=\"http:\/\/schemas.xmlsoap.org\/wsdl\/\" xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\">\
   <wsdl:types>\
-    <xsd:schema targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\">\
-      <xsd:element name=\"NodeREDPayload\" type=\"tns:NodeREDPayload\"><\/xsd:element>\
-      <xsd:element name=\"PruebaServicio\" type=\"tns:PruebaServicio\"><\/xsd:element>\
+    <xsd:schema targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\">'+schema_element+'\
 <xsd:complexType name=\"NodeREDPayload\">\
       \t<xsd:sequence>\
       \t\t<xsd:element name=\"camp1\" type=\"xsd:string\"><\/xsd:element>\
