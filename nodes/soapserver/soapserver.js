@@ -23,7 +23,11 @@
  * 
  * 
  */
+
+
 module.exports = function(RED) {
+
+
   function SoapServerNode(config) {
     var thisNode = this;
     
@@ -32,12 +36,42 @@ module.exports = function(RED) {
     var soap = require("soap");
     var http = require("http");
     var port = parseInt(config.port);
-    var metodos = [
-	    {metodo : "startFlow",
-    	     campos : ["camp1","camp2"]},
-	    {metodo : "startFlow2",
-             campos : ["var1","var2"]}
+    var services = [
+	    {method : "startFlow",
+    	     camps : ["camp1","camp2"]},
+	    {method : "startFlow2",
+             camps : ["var1","var2"]}
     ];
+	var schema_element = '';
+	var complex_element = '';
+	var message_part = '';
+	var operation = '';
+	var binding_operation = '';
+		  
+		  
+	services.forEach(function (e,i,array){
+		schema_element = schema_element + '      <xsd:element name=\"'+service.method+'\" type=\"tns:'+service.method+'\"><\/xsd:element>';	
+	});
+	
+//	services.forEach(function (e,i,array){
+//		var camps = '';
+//		e.camps.forEach(function (e_camps,i_camps,array_camps){
+//			camps = camps + '\t\t<xsd:element name=\"'+e_camps+'\" type=\"xsd:string\"><\/xsd:element>';				
+//		});
+//		complex_element = complex_element + '<xsd:complexType name=\"'+e.method+'\">      \t<xsd:sequence>'+camps+'      \t<\/xsd:sequence>      <\/xsd:complexType>';
+//    });
+
+//    services.forEach(function (e,i,array){
+//		message_part = message_part + '  <wsdl:message name=\"'+e.method+'Request\">    <wsdl:part element=\"tns:+'e.method'+\" name=\"parameters\" \/>  <\/wsdl:message>  <wsdl:message name=\"'+e.method+'Response\">    <wsdl:part element=\"tns:'+e.method+'\" name=\"parameters\" \/>  <\/wsdl:message>';
+//    });
+
+//    services.forEach(function (e,i,array){
+//		operation = operation + '    <wsdl:operation name=\"'+service.method+'\">      <wsdl:input message=\"tns:'+service.method+'Request\"\/>      <wsdl:output message=\"tns:'+service.method+'Response\"\/>    <\/wsdl:operation>';
+//    });
+
+//    services.forEach(function (e,i,array){
+//        binding_operation = binding_operation + '    <wsdl:operation name=\"'+e.method+'\">      <wsdl:input message=\"tns:'+e.method+'Request\"\/>      <wsdl:output message=\"tns:'+e.method+'Response\"\/>    <\/wsdl:operation>';
+//    });
 
 
 
@@ -66,73 +100,23 @@ module.exports = function(RED) {
 // set to the `msg` payload:
 
 
-     metodos.forEach(function (e, i, array) {
+     services.forEach(function (e, i, array) {
          //console.log(elemento, indice);
-	 nodeRedService.NodeRED.NodeRED[e.metodo] = function(args, soapResponseCallback) {
+	 nodeRedService.NodeRED.NodeRED[e.method] = function(args, soapResponseCallback) {
             var payload = {};
-		    e.campos.forEach(function (campos_e, campos_i, campos_array) {
-			    payload[campos_e]=args[campos_e];
+		    e.camps.forEach(function (camps_e, camps_i, camps_array) {
+			    payload[camps_e]=args[camps_e];
 		    });
             thisNode.send({
               "payload": payload,
               "_soapServer_soapResponseCallback": soapResponseCallback
             });
           };
-	  nodeRedService.NodeRED.NodeRED[e.metodo+"OneWay"] = function(args) {
-            thisNode.log(e.metodo+"OneWay");
+	  nodeRedService.NodeRED.NodeRED[e.method+"OneWay"] = function(args) {
+            thisNode.log(e.method+"OneWay");
           };
      });
 
-		
-		
-//          startFlow: function(args, soapResponseCallback) {
-//            var payload = {
-//		    "camp1": args.camp1,
-//		    "camp2": args.camp2
-//	    };
-//            thisNode.send({
-//              "payload": payload,
-//              "_soapServer_soapResponseCallback": soapResponseCallback
-//            });
-//          }, // End of startFlow function
-//          startFlowOneWay: function(args) {
-//            thisNode.log("startFlowOneWay");
-//          }, // End of startFlowOneWay
-//        
-//	
-//	  startFlow2: function(args, soapResponseCallback) {
-//            var payload = {
-//                    "var1": args.var1,
-//                    "var2": args.var2
-//            };
-//            thisNode.send({
-//              "payload": payload,
-//              "_soapServer_soapResponseCallback": soapResponseCallback
-//            });
-//          }, // End of startFlow function
-//          startFlowOneWay2: function(args) {
-//            thisNode.log("startFlowOneWay2");
-//          } // End of startFlowOneWay
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	} // End of binding name
-//      } // End of service name
-//    }; // End of service definition
-
-    // The WSDL data is the XML document that represents the WSDL that is the
-    // specification of the SOAP request honored by this node.  The WSDL can
-    // be turned into a text string by passing it through a converter such as the
-    // one found on-line here:
-    // http://www.howtocreate.co.uk/tutorials/jsexamples/syntax/prepareInline.html
-    //
     var wsdl = '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\
 <wsdl:definitions name=\"NodeRED\" targetNamespace=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:soap=\"http:\/\/schemas.xmlsoap.org\/wsdl\/soap\/\" xmlns:tns=\"http:\/\/www.neilkolban.com\/NodeRED\/\" xmlns:wsdl=\"http:\/\/schemas.xmlsoap.org\/wsdl\/\" xmlns:xsd=\"http:\/\/www.w3.org\/2001\/XMLSchema\">\
   <wsdl:types>\
