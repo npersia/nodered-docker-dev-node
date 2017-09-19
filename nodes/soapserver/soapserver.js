@@ -36,16 +36,18 @@ module.exports = function(RED) {
     var soap = require("soap");
     var http = require("http");
     var port = parseInt(config.port);
-    var services = [
-	    {method : "startFlow",
-    	     camps : ["camp1","camp2"]},
-	    {method : "startFlow2",
-             camps : ["var1","var2"]},
-            {method : "startFlow3",
-             camps : ["a","b","c"]}
-	    
-    ];
-	var schema_element = '';
+//    var services = [
+//	    {method : "startFlow",
+//    	     camps : ["camp1","camp2"]},
+//	    {method : "startFlow2",
+//             camps : ["var1","var2"]},
+//            {method : "startFlow3",
+//             camps : ["a","b","c"]}
+//    ];
+        var services = [];
+	services = JSON.parse(config.services);
+	console.log(services);
+        var schema_element = '';
 	var complex_element = '';
 	var message_part = '';
 	var operation = '';

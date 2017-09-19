@@ -31,7 +31,8 @@
         value: null,
         required: true,
         validate: RED.validators.number()
-      }
+      },
+      services: { value: "" }
     }
   });
 </script>
@@ -58,5 +59,9 @@
     <div class="form-row">
         <label for="node-input-port"><i class="icon-tasks"></i> Port</label>
         <input type="text" id="node-input-port" placeholder="Port">
+    </div>
+    <div class="form-row">
+        <label for="node-input-services"><i class="icon-tasks"></i> Services</label>
+        <input type="hidden" id="node-input-services" placeholder="Services">
     </div>
 </script>
