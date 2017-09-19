@@ -27,6 +27,7 @@
     paletteLabel: "soap server",
     defaults: {
       name: { value: "" },
+      serviceurl: { value: "" },
       port: {
         value: null,
         required: true,
@@ -60,11 +61,12 @@
         <label for="node-input-port"><i class="icon-tasks"></i> Port</label>
         <input type="text" id="node-input-port" placeholder="Port">
     </div>
-    
-    
-    
+    <div class="form-row">
+        <label for="node-input-serviceurl"><i class="icon-tasks"></i> URL</label>
+        <input type="text" id="node-input-serviceurl" placeholder="URL">
+    </div>
     <div class="form-row">
         <label for="node-input-services"><i class="icon-tasks"></i> Services</label>
-        <textarea rows="10" cols="80" id="node-input-services" placeholder="Services">
+        <textarea rows="10" cols="80" id="node-input-services" placeholder="Services"></textarea>
     </div>
 </script>

@@ -51,7 +51,7 @@ module.exports = function(RED) {
 	var message_part = '';
 	var operation = '';
 	var binding_operation = '';
-		  
+	var serviceurl = (config.serviceurl);	  
 		  
 	services.forEach(function (e,i,array){
 		schema_element = schema_element + '      <xsd:element name=\"'+e.method+'\" type=\"tns:'+e.method+'\"><\/xsd:element>';	
@@ -211,7 +211,7 @@ module.exports = function(RED) {
   <\/wsdl:binding>\
   <wsdl:service name=\"NodeRED\">\
     <wsdl:port binding=\"tns:NodeRED\" name=\"NodeRED\">\
-      <soap:address location=\"http:\/\/localhost:'+port+'\/soap\"\/>\
+      <soap:address location=\"http:\/\/'+serviceurl+':'+port+'\/soap\"\/>\
     <\/wsdl:port>\
   <\/wsdl:service>\
 <\/wsdl:definitions>\
