@@ -46,7 +46,6 @@ module.exports = function(RED) {
 //    ];
         var services = [];
 	services = JSON.parse(config.services);
-	console.log(services);
         var schema_element = '';
 	var complex_element = '';
 	var message_part = '';

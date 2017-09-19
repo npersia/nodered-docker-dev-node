@@ -18,7 +18,7 @@ RUN mkdir /data/flows
 RUN mkdir /nodes
 
 
-
+EXPOSE 1880 8888
 
 COPY settings.js /data/
 COPY flows/ /data/flows/
@@ -36,9 +36,6 @@ RUN chmod -R 777 /nodes/$NODE/
 
 RUN npm link /nodes/$NODE
 RUN npm link /usr/src/node-red/ node-red-contrib-$NODE
-
-
-EXPOSE 1880 8888
 
 # Environment variable holding file path for flows configuration
 #ENV FLOWS=flows.json
