@@ -108,6 +108,7 @@ module.exports = function(RED) {
          //console.log(elemento, indice);
 	 nodeRedService.NodeRED.NodeRED[e.method] = function(args, soapResponseCallback) {
             var payload = {};
+		    payload["method"]=e.method;
 		    e.camps.forEach(function (camps_e, camps_i, camps_array) {
 			    payload[camps_e]=args[camps_e];
 		    });
