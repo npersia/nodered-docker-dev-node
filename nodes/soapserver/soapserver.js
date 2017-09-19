@@ -80,10 +80,17 @@ module.exports = function(RED) {
 
 
 
-    if (isNaN(port)) {
-      thisNode.error("No port for soap server node!");
-      thisNode.status({fill: "red", shape: "ring", text: "not listening"});
-      return;
+    //if (isNaN(port)) {
+      //thisNode.error("No port for soap server node!");
+      //thisNode.status({fill: "red", shape: "ring", text: "not listening"});
+      //return;
+      
+    //}
+    if (port == null){
+        port = "";
+    }
+    if (port != null){
+    	port = ":" + port
     }
     
     // Setup an HTTP server to listen for incoming HTTP requests.
@@ -212,7 +219,7 @@ module.exports = function(RED) {
   <\/wsdl:binding>\
   <wsdl:service name=\"NodeRED\">\
     <wsdl:port binding=\"tns:NodeRED\" name=\"NodeRED\">\
-      <soap:address location=\"http:\/\/'+serviceurl+':'+port+'\/soap\"\/>\
+      <soap:address location=\"http:\/\/'+serviceurl+port+'\/soap\"\/>\
     <\/wsdl:port>\
   <\/wsdl:service>\
 <\/wsdl:definitions>\
