@@ -52,6 +52,7 @@ module.exports = function(RED) {
 	var operation = '';
 	var binding_operation = '';
 	var serviceurl = (config.serviceurl);	  
+        var addlocation = (config.addlocation);
 		  
 	services.forEach(function (e,i,array){
 		schema_element = schema_element + '      <xsd:element name=\"'+e.method+'\" type=\"tns:'+e.method+'\"><\/xsd:element>';	
@@ -80,18 +81,19 @@ module.exports = function(RED) {
 
 
 
-    //if (isNaN(port)) {
-      //thisNode.error("No port for soap server node!");
-      //thisNode.status({fill: "red", shape: "ring", text: "not listening"});
-      //return;
+    if (isNaN(port)) {
+      thisNode.error("No port for soap server node!");
+      thisNode.status({fill: "red", shape: "ring", text: "not listening"});
+      return;
       
-    //}
-    if (port == null){
-        port = "";
     }
-    if (port != null){
-    	port = ":" + port
-    }
+//    if (port == null || isNaN(port)){
+//        port = "";
+//    }
+//    else if (!isNaN(port)){
+//    	port = ":" + port
+//    }
+//    console.log(port);
     
     // Setup an HTTP server to listen for incoming HTTP requests.
     var server = http.createServer(function(request, response){
@@ -219,7 +221,7 @@ module.exports = function(RED) {
   <\/wsdl:binding>\
   <wsdl:service name=\"NodeRED\">\
     <wsdl:port binding=\"tns:NodeRED\" name=\"NodeRED\">\
-      <soap:address location=\"http:\/\/'+serviceurl+port+'\/soap\"\/>\
+      <soap:address location=\"'+addlocation+'\/soap\"\/>\
     <\/wsdl:port>\
   <\/wsdl:service>\
 <\/wsdl:definitions>\

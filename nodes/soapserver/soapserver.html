@@ -28,6 +28,7 @@
     defaults: {
       name: { value: "" },
       serviceurl: { value: "" },
+      addlocation:{value: ""},
       port: {
         value: null,
         validate: RED.validators.number()
@@ -63,6 +64,10 @@
     <div class="form-row">
         <label for="node-input-serviceurl"><i class="icon-tasks"></i> URL</label>
         <input type="text" id="node-input-serviceurl" placeholder="URL">
+    </div>
+    <div class="form-row">
+        <label for="node-input-addlocation"><i class="icon-tasks"></i> Address</label>
+        <input type="text" id="node-input-addlocation" placeholder="Address">
     </div>
     <div class="form-row">
         <label for="node-input-services"><i class="icon-tasks"></i> Services</label>
